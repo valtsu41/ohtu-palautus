@@ -14,9 +14,14 @@ def main():
 
     print("Finnish players:")
 
-    for player in players:
-        if player.nationality == "FIN":
-            print(player)
+    res_players = sorted(
+        filter(lambda p: p.nationality == "FIN", players),
+        key=lambda p: p.score,
+        reverse=True
+    )
+
+    for player in res_players:
+        print(player)
 
 if __name__ == "__main__":
     main()

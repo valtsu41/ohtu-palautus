@@ -10,6 +10,10 @@ class Player:
         self.team: str = dict['team']
         self.games: int = dict['games']
         self.id: int = dict['id']
+
+    @property
+    def score(self) -> int:
+        return self.goals + self.assists
     
-    def __str__(self):
-        return f"{self.name} team {self.team} points {self.goals}+{self.assists}"
+    def __str__(self) -> str:
+        return f"{self.name:20} {self.team:15} {self.goals:2} + {self.assists:2} = {self.score:2}"
