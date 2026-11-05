@@ -14,34 +14,26 @@ class Player:
     def points(self) -> int | None:
         if self.goals is None or self.assists is None:
             return None
-        else:
-            return self.goals + self.assists
+        return self.goals + self.assists
 
-    def __str__(self) -> str:
-        return f"{self.name:20} {self.team:15} {self.goals:>2} + {self.assists:<2} = {self.points:<2}"
+def get_players(url) -> list[Player]:
+    response = requests.get(url, timeout=10).json()
+    res = []
+    for obj in response:
+        res.append(Player(
+            obj.get("name"),
+            obj.get("nationality"),
+            obj.get("assists"),
+            obj.get("goals"),
+            obj.get("team"),
+            obj.get("games")
+        ))
+    return res
 
-class PlayerReader():
-    def __init__(self, url: str):
-        self.url = url
-
-    def get_players(self) -> list[Player]:
-        response = requests.get(self.url).json()
-        res = []
-        for obj in response:
-            res.append(Player(
-                obj.get("name"),
-                obj.get("nationality"),
-                obj.get("assists"),
-                obj.get("goals"),
-                obj.get("team"),
-                obj.get("games")
-            ))
-        return res
-        
 
 class PlayerStats():
-    def __init__(self, reader: PlayerReader):
-        self.players = reader.get_players()
+    def __init__(self, players: list[Player]):
+        self.players = players
 
     def get_nationalities(self) -> list[str]:
         res = {p.nationality for p in self.players if p.nationality is not None}
