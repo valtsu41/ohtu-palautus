@@ -39,9 +39,31 @@ class PlayerStats():
         res = {p.nationality for p in self.players if p.nationality is not None}
         return list(res)
 
-    def top_scorers_by_nationality(self, nationality: str):
+    def get_teams(self) -> list[str]:
+        res = {p.team for p in self.players if p.team is not None}
+        return list(res)
+
+    def top_scorers_by_nationality(self, nationality: str) -> list[Player]:
         return sorted(
             filter(lambda p: p.nationality == nationality, self.players),
             key=lambda p: p.points or 0,
             reverse=True
         )
+
+    def top_scorers_by_team(self, team: str) -> list[Player]:
+        return sorted(
+            (p for p in self.players if p.team == team),
+            key=lambda p: p.points or 0,
+            reverse=True
+        )
+
+    def top_goal_scorers(self, how_many):
+        """Palauttaa enintään how_many eniten maaleja tehnyttä pelaajaa.
+
+        Pelaajat järjestetään maalimäärän mukaan laskevaan järjestykseen.
+        """
+        return sorted(
+            self.players,
+            key=lambda p: p.goals or 0,
+            reverse=True
+        )[:how_many]

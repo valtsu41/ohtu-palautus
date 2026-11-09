@@ -16,16 +16,30 @@ SEASONS = [
         "2026-27"
     ]
 
+
+def get_selected_players(stats: PlayerStats, season: str):
+    selection = Prompt.ask(
+        "Search by nationality or team",
+        choices=["nationality", "team"]
+    )
+    if selection == "nationality":
+        value = Prompt.ask("Nationality", choices=stats.get_nationalities())
+        players = stats.top_scorers_by_nationality(value)
+    else:
+        value = Prompt.ask("Team", choices=stats.get_teams())
+        players = stats.top_scorers_by_team(value)
+    return players, f"{value} players season {season}"
+
+
 def main():
     season = Prompt.ask("Season",choices=SEASONS)
 
     url = f"https://studies.cs.helsinki.fi/nhlstats/{season}/players"
     stats = PlayerStats(get_players(url))
 
-    nationality = Prompt.ask("Nationality", choices=stats.get_nationalities())
-    players = stats.top_scorers_by_nationality(nationality)
+    players, title = get_selected_players(stats, season)
 
-    table = Table(title=f"{nationality} players season {season}")
+    table = Table(title=title)
 
     for title in ("Name", "Team", "Goals", "Assists", "Points"):
         table.add_column(title)
