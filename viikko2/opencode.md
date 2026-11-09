@@ -1,0 +1,5 @@
+Agentti onnistui toteuttamaan `top_goal_scorers` oikein ja samalla tyylillä kuin itse toteuttamani metodit. Se myös selitti pylintin varoitukset oikein. Agentti myös toteutti uuden ominaisuuden hienosti.
+
+Testeissä oli kuitenkin jokin ongelma importtien kanssa, ja agentti laittoi testit myös aluksi väärään kansioon. Agentti ei oikein tuntunut tietävän mitä tehdä, joten päätin resetoida kontekstin ja vaihtaa isomman mallin tokenien tyhjään polttamisen sijasta. Isompi malli osasi jotenkin säätää `pyproject.toml`-tiedostoon oikeat asetukset (joita ei kyllä mielestäni ole tarvinnut aikaisemmissa testeissä, mutta hei, ratkaisu toimi) Tokenini loppuivat juuri kun olin saanut ongelman korjattua.
+
+Ehkä yllättäviä asioita oli opencoden asentamisen vaikeus (npm, ei toiminut, päädyin lataamaan suoraan opencoden sivuilta `.exe`n), tokenien kulumisen nopeus, ja se, että agentit välillä sotkivat sekä `CR+LF`- ja `LF`-rivinvaihtoja samaan tiedostoon (josta pylint kyllä huomautti).
