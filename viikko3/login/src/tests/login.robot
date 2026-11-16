@@ -11,6 +11,12 @@ Login With Correct Credentials
     Click  button >> text=Login
     Login Should Succeed
 
+Login With Nonexistent Username
+    Set Username  skibidi
+    Set Password  kall456
+    Click  button >> text=Login
+    Login Should Fail With Message  Invalid username or password
+
 Login With Incorrect Password
     Set Username  kalle
     Set Password  kalle456
